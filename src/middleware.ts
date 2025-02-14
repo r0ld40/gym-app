@@ -14,5 +14,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*'], // Middleware será aplicado apenas no /dashboard e subrotas
+  matcher: ['/dashboard/:path*', '/'], // Middleware será aplicado apenas no /dashboard e subrotas
 };

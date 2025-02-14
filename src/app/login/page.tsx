@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function LoginPage() {
   const [data, setData] = useState({ email: '', password: '' });
@@ -16,7 +16,6 @@ export default function LoginPage() {
 
   const handleGetUser = async () => {
     try {
-      console.log(data);
       const response = await fetch(`/api/auth`, {
         method: 'POST',
         headers: {
@@ -29,15 +28,13 @@ export default function LoginPage() {
 
       if (response.ok) {
         console.log(result);
+        setData({ email: '', password: '' });
+        return window.location.href = '/dashboard';
       }
     } catch (error) {
       console.error('Erro ao fazer login:', error);
     }
   };
-
-  useEffect(() => {
-    console.log('data', data);
-  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -79,9 +76,7 @@ export default function LoginPage() {
         </CardContent>
         <CardFooter className="flex flex-col space-y-4">
           <Button className="w-full" onClick={handleGetUser}>
-            <Link href="/dashboard" className="w-full h-full">
-              Entrar
-            </Link>
+            Entrar
           </Button>
           <Link href="/login/forgot-password" className="text-sm text-center text-blue-600 hover:underline">
             Esqueceu sua senha?
